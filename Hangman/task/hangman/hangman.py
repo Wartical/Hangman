@@ -4,34 +4,35 @@ import random
 
 def reveal_attempted_letters(mystery_word, attempted_letters):
     revealed_word = ''
-    for l in mystery_word:
-        is_found = attempted_letters.count(l) > 0
+    for letter in mystery_word:
+        is_found = attempted_letters.count(letter) > 0
         if is_found:
-            revealed_word += l
+            revealed_word += letter
         else:
             revealed_word += '-'
 
     return revealed_word
 
 
-def detect_errors(input, attempted_letters):
-    is_one_char = len(input) == 1
+def detect_errors(input_string, attempted_letters):
+    is_one_char = len(input_string) == 1
     if not is_one_char:
         err_mess = "You should input a single letter"
         return err_mess
 
-    is_lower_ascii = input.isascii() and input.islower()
+    is_lower_ascii = input_string.isascii() and input_string.islower()
     if not is_lower_ascii:
         err_mess = "It is not an ASCII lowercase letter"
         return err_mess
 
-    is_already_tried = attempted_letters.count(input) > 0
+    is_already_tried = attempted_letters.count(input_string) > 0
     if is_already_tried:
         err_mess = "You already typed this letter"
         return err_mess
 
     err_mess = None
     return err_mess
+
 
 def new_game():
     word_list = ['python', 'java', 'kotlin', 'javascript']
@@ -47,7 +48,7 @@ def new_game():
         entered_char = input('Input a letter:')
 
         err_mess = detect_errors(entered_char, all_attempted_letters)
-        if err_mess != None:
+        if err_mess is not None:
             print(err_mess)
             continue
 
